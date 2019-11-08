@@ -86,9 +86,21 @@ int BETTING_SET() //Betting for play
 	int bet[N_MAX_USER];//array the betting pricce for other players
 	
 	printf("-----betting step-----\n");
-	printf("   -> your betting (total : %d) : ", N_DOLLAR);
-	scanf("%d", &bet_user);
-
+	do{
+		printf("   -> your betting (total : %d) : ", N_DOLLAR);
+		scanf("%d", &bet_user);
+		
+		if(bet_user>N_DOLLAR)
+		{
+			printf("Too much!\n");
+			}
+		
+		else if(bet_user<0)
+			{
+			printf("Too small!\n");			
+		}
+	}while(bet_user<0 || bet_user>N_DOLLAR);
+	
 	for(i=1;i<=PLAY_NUMBER-1;i++)
 	{
 		bet[i]= RANDOM_B_PLAYER();
