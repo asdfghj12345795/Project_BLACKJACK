@@ -92,22 +92,22 @@ int Card_Offer_1()//Give the card each player.
 		return 0;
 }
 
-int Card_SHOW_1()
+int Card_SHOW_1() // card showing on the first game set.
 {
 	int i;
 	int j;
 	
 	printf("------------- CARD OFFERING ---------------\n");
-	Card_Offer_1();
+	Card_Offer_1(); 
 
 	printf(" delear : X %d", Dealer_card[2]);
 	printf(" -> you : %d %d",Player_Card[1][1], Player_Card[2][1]);	
 	
-	for(j=1;i<3;j++)
+	for(j=1;i<3;j++) // show the player's two card 
 	{
 		for(i=2;i<=PLAY_NUMBER;i++)
 	{
-	printf(" -> player %d : % %", i, Player_Card[j][i]);
+	printf(" -> player %d : %d %d", i, Player_Card[j][i]);
 	}
 }
 	return 0;
