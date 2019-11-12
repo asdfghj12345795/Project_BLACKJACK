@@ -19,10 +19,12 @@ int bet[N_MAX_USER]; //players do betting
 int gameEnd=0; // flag of end
 int PLAY_NUMBER;//fix the play number 
 int N_ROUND=1; //represent the count of round
-int N_DOLLAR = 50;
-int Card_set[N_CARD] = {1,2,3,4,5,6,7,8,9,10,10,10,10,1,2,3,4,5,6,7,8,9,10,10,10,10,1,2,3,4,5,6,7,8,9,10,10,10,10,1,2,3,4,5,6,7,8,9,10,10,10,10}; //total card is 52
-int Player_Card[N_MAX_USER][N_MAX_CARD];
-int Dealer_card[N_MAX_CARD]; 
+int Card_set[N_CARD] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52}; //total card is 52
+int Dollar[N_MAX_USER];
+int Round_B_price[N_MAX_GO][N_MAX_USER]; //The betting amount variable of the player in the field.
+int Player_Card[N_MAX_GO][N_MAX_USER]; // [i][j] : ith card of j player
+int Dealer_card[N_MAX_GO]; //[j] : jth card of dealer
+
 
 int getIntegerInput(void) // the function that protect to input
  {
@@ -35,6 +37,7 @@ int getIntegerInput(void) // the function that protect to input
     
     return input;
 }
+
 extern int PLAY_NUMBER;
 int PLAY_NUM() // input the sum of players
 {	
@@ -58,11 +61,120 @@ int PLAY_NUM() // input the sum of players
 printf("---> card is mixed and put into the tray\n");
 return 0;
 }
-extern int Player_Card[N_MAX_USER][N_MAX_CARD];
+
+
+int Matching_the_card_number(int number_array) // decide the number (1~K,Q,J) of cards
+{
+	int Card_set[number_array];
+	int check; // Variable being able to through the division.
+	int confirm =13; /// Number of confirmation.
+	int number; // variable of the card number
+	
+	check = number_array%13;
+	
+	switch(chack){
+		
+		case 0:
+			printf("1");
+			break;
+		
+		case 1:
+			printf("2");
+			break;
+		
+		case 2:
+			printf("3");
+			break;
+		
+		case 3:
+			printf("4");
+			break;
+		
+		case 4:
+			printf("5");
+			break;
+
+		case 5:
+			printf("6");
+			break;
+
+		case 6:
+			printf("7");
+			break;
+
+		case 7:
+			printf("8");
+			break;
+
+		case 8:
+			printf("9");
+			break;
+
+		case 9:
+			printf("10");
+			break;
+	
+		case 10:
+			printf("king");
+			break;
+
+		case 11:
+			printf("Queen");
+			break;
+
+		case 12:
+			printf("Jack");
+			break;
+			
+	}
+
+	return 0;
+
+}
+	
+
+int Matching_the_card_shape(int number_array)//decide the shape of card like ¢¾¢À¢¼¡ß.
+{
+	int Card_set[number_array];
+	int check; // Variable being able to through the division.
+	int confirm =13; /// Number of confirmation.
+	char shape; // express the shape
+	char HEA, SPA, CLV, DIA;
+	
+	check = number_array/confirm;
+	
+	switch(check)
+	{
+		case 0:
+			shape = HEA; 
+			break;
+		
+		case 1:
+			shape = SPA;
+			break;
+		
+		case 2:
+			shape = CLV;
+			break;
+			 
+		case 3:
+			shape = DIA;	 		
+			break;	
+	}
+	
+	return (shape);		
+} 
+
+
+extern int Player_Card[N_MAX_GO][N_MAX_USER];
+
+extern int Dealer_card[N_MAX_GO]; 
+
 
 int Card_Offer_1()//Give the card each player.
 {
-		int Player_Card[PLAY_NUMBER];
+		int Player_Card[N_MAX_GO][N_MAX_USER];
+		int Dealer_card[N_MAX_GO];
 		int i;
 		int j;
 		int h;//function that set for player to give two cards. 
@@ -77,7 +189,7 @@ int Card_Offer_1()//Give the card each player.
 		{	
 			for(h=1;h<3;h++) //function that set for player to give two cards.
 			{
-				for(j=1,h=1;j<PLAY_NUMBER,h<3;j++,h++)
+				for(j=1;j<PLAY_NUMBER;j++)
 			{
 				srand((unsigned)time(NULL));
 				Player_Card[h][j]=rand()%52;
@@ -95,20 +207,19 @@ int Card_Offer_1()//Give the card each player.
 int Card_SHOW_1() // card showing on the first game set.
 {
 	int i;
-	int j;
+	Card_Offer_1();
 	
 	printf("------------- CARD OFFERING ---------------\n");
-	Card_Offer_1(); 
 
-	printf(" delear : X %d", Dealer_card[2]);
-	printf(" -> you : %d %d",Player_Card[1][1], Player_Card[2][1]);	
+
+	printf(" delear : X %c%d", Matching_the_card_shape(Dealer_card[2]), Matching_the_card_number(Dealer_card[2]));
+	printf(" -> you : %c%d %c%d", Matching_the_card_shape(Player_Card[1][1]), Matching_the_card_number(Player_Card[1][1]), Matching_the_card_shape(Player_Card[2][1]), Matching_the_card_number(Player_Card[2][1]));	
 	
-	for(j=1;i<3;j++) // show the player's two card 
-	{
-		for(i=2;i<=PLAY_NUMBER;i++)
-	{
-	printf(" -> player %d : %d %d", i, Player_Card[j][i]);
-	}
-}
+	
+	for(i=2;i<=PLAY_NUMBER;i++)
+		{
+		printf(" -> player %d : %c%d %c%d", i, Matching_the_card_shape(Player_Card[1][i]), Matching_the_card_number(Player_Card[1][i]), Matching_the_card_shape(Player_Card[2][i]), Matching_the_card_number(Player_Card[2][i]));
+		
+		}
 	return 0;
 }
