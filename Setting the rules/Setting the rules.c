@@ -20,7 +20,6 @@ int bet[N_MAX_USER]; //players do betting
 int gameEnd=0; // flag of end
 int PLAY_NUMBER;//fix the play number 
 int N_ROUND=1; //represent the count of round
-int N_DOLLAR = 50;
 int Dollar[N_MAX_USER];
 int Round_B_price[N_MAX_GO][N_MAX_USER]; //The betting amount variable of the player in the field.
 
