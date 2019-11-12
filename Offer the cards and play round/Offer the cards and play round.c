@@ -1,4 +1,4 @@
-#include <stdio.h>
+hynhjh#include <stdio.h>
 #include <stdlib.h>//to use rand function
 #include <time.h>
 

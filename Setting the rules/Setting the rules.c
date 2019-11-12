@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>//to use rand function
 #include <time.h>
@@ -20,7 +21,8 @@ int gameEnd=0; // flag of end
 int PLAY_NUMBER;//fix the play number 
 int N_ROUND=1; //represent the count of round
 int N_DOLLAR = 50;
-
+int Dollar[N_MAX_USER];
+int Round_B_price[N_MAX_GO][N_MAX_USER]; //The betting amount variable of the player in the field.
 
 int getIntegerInput(void) // the function that protect to input
  {
@@ -67,30 +69,47 @@ printf("-----------------------------------------\n-----------ROUND %d(CardIndex
 
 } 
 
+extern int Dollar[N_MAX_USER]; //express that is external.
+extern PLAY_NUMBER; //express that is external.
+extern int Round_B_price[N_MAX_GO][N_MAX_USER]; // express that is external.
 
+int set_price()
+{
+	int Dollar[5]={50, 50, 50, 50, 50};
+}
+
+ 
 int RANDOM_B_PLAYER() // Ramdom betting system for other players
 {
-	int B_max = N_DOLLAR; //setting the definition to bet
-	int B_price;
+	int i;
+	int B_max[N_MAX_USER];
 	
-	srand((unsigned)time(NULL));
-	B_price = 1+rand()%B_max;
+	set_price();
+	B_max[N_MAX_USER] = Dollar[N_MAX_USER]; //Make as much as the number of player the array for money.
 	
-	return (B_price);
+	for(i=1;i<PLAY_NUMBER;i++) //the user is the player : array number [0].
+	{
+		B_max[i]=Dollar[i];
+		srand((unsigned)time(NULL));
+		Round_B_price[1][i] = 1+rand()%B_max[i]; //Set random betting amount for i-th player in 1st round.
+	}
+	
+	return (Round_B_price[1][i]);
+	
 }
 
 int BETTING_SET() //Betting for play
 {
 	int bet_user; // betting price for user
 	int i;
-	int bet[N_MAX_USER];//array the betting pricce for other players
+	set_price();
 	
 	printf("-----betting step-----\n");
 	do{
-		printf("   -> your betting (total : %d) : ", N_DOLLAR);
+		printf("   -> your betting (total : %d) : ", Dollar[0]);
 		scanf("%d", &bet_user);
 		
-		if(bet_user>N_DOLLAR)
+		if(bet_user>Dollar[0])
 		{
 			printf("Too much!\n");
 			}
@@ -99,12 +118,12 @@ int BETTING_SET() //Betting for play
 			{
 			printf("Too small!\n");			
 		}
-	}while(bet_user<0 || bet_user>N_DOLLAR);
+	}while(bet_user<0 || bet_user>Dollar[0]);
 	
-	for(i=1;i<=PLAY_NUMBER-1;i++)
+	for(i=1;i<PLAY_NUMBER;i++) //the user is the player : array number [0].
 	{
 		bet[i]= RANDOM_B_PLAYER();
-		printf("   -> player %d bets $%d (out of $%d)\n", i, bet[i], N_DOLLAR);
+		printf("   -> player %d bets $%d (out of $%d)\n", i, bet[i], Dollar[i]);
 	}
 	
 	printf("---------------------\n");	 
