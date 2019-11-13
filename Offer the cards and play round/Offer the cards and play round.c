@@ -1,7 +1,7 @@
-hynhjh#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>//to use rand function
 #include <time.h>
-
+.
 #define N_CARDSET	1
 #define N_CARD	52
 #define N_MAX_CARDNUM	13
@@ -212,7 +212,7 @@ int Card_SHOW_1() // card showing on the first game set.
 	printf("------------- CARD OFFERING ---------------\n");
 
 
-	printf(" delear : X %c%d", Matching_the_card_shape(Dealer_card[2]), Matching_the_card_number(Dealer_card[2]));
+	printf(" delear : X %c", Matching_the_card_shape(Dealer_card[2]), Matching_the_card_number(Dealer_card[2]));
 	printf(" -> you : %c%d %c%d", Matching_the_card_shape(Player_Card[1][1]), Matching_the_card_number(Player_Card[1][1]), Matching_the_card_shape(Player_Card[2][1]), Matching_the_card_number(Player_Card[2][1]));	
 	
 	
