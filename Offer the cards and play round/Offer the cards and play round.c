@@ -2,7 +2,7 @@
 #include <stdlib.h>//to use rand function
 #include <time.h>
 .
-#define N_CARDSET	1
+#define N_CARDSET	17
 #define N_CARD	52
 #define N_MAX_CARDNUM	13
 #define N_MAX_USER	5
@@ -75,60 +75,60 @@ int Matching_the_card_number(int number_array) // decide the number (1~K,Q,J) of
 	switch(chack){
 		
 		case 0:
-			printf("1");
+			number=1;
 			break;
 		
 		case 1:
-			printf("2");
+			number=2;
 			break;
 		
 		case 2:
-			printf("3");
+			number=3;
 			break;
 		
 		case 3:
-			printf("4");
+			number=4;
 			break;
 		
 		case 4:
-			printf("5");
+			number=5;
 			break;
 
 		case 5:
-			printf("6");
+			number=6;
 			break;
 
 		case 6:
-			printf("7");
+			number=7;
 			break;
 
 		case 7:
-			printf("8");
+			number=8;
 			break;
 
 		case 8:
-			printf("9");
+			number=9;
 			break;
 
 		case 9:
-			printf("10");
+			number=10;
 			break;
 	
 		case 10:
-			printf("king");
+			number=11;
 			break;
 
 		case 11:
-			printf("Queen");
+			number=12;
 			break;
 
 		case 12:
-			printf("Jack");
+			number=13;
 			break;
 			
 	}
 
-	return 0;
+	return (number);
 
 }
 	
@@ -196,30 +196,85 @@ int Card_Offer_1()//Give the card each player.
 			}
 		}
 		
-		}while(Dealer_card[1]=Dealer_card[2]||Dealer_card[1]=Player[1]||Dealer_card[1]=Player[2]||Dealer_card[1]=Player[3]||Dealer_card[1]=Player[4]||Dealer_card[1]=Player[5]||Dealer_card[2]=Player[1]
-||Dealer_card[2]=Player[2]||Dealer_card[2]=Player[3]||Dealer_card[2]=Player[4]||Dealer_card[2]=Player[5]||Player[1]=Player[2]||Player[1]=Player[3]||Player[1]=Player[4]||Player[1]=Player[5]||Player[2]=Player[3]||Player[2]=Player[4||Player[2]=Player[5]||Player[3]=Player[4]||Player[3]=Player[5]||Player[4]=Player[5]);
-		//Player number is limited '5'. So the limination arrary number is '5'. 
-		//If the card is set to Player 1, that card can't set to oher players.
+		}
+		return 0; //There are 17 cardsets and 17 n_max_go, so there is no need to ask for redundancy.
+}
+
+extern int Player_Card[N_MAX_GO][N_MAX_USER];
+
+extern int Dealer_card[N_MAX_GO]; 
+
+int Card_Offer_player(int n, int Nofplayer)//Give the card each player.
+{
+		int Player_Card[n+1][Nofplayer];
+		
+		srand((unsigned)time(NULL));
+		Player_Card[n+1][Nofplayer] = rand()%52;
+	
 			
-		return 0;
+		return (Player_Card[n+1][Nofplayer]);//There are 17 cardsets and 17 n_max_go, so there is no need to ask for redundancy.
+}
+
+extern int Player_Card[N_MAX_GO][N_MAX_USER];
+
+extern int Dealer_card[N_MAX_GO]; 
+
+int number_cal(int num[N_MAX_GO]) //A function that calculates an overflow by adding the number of cards
+{
+	int sum=0; // a variable that stores the sum of the numbers written on the card.
+	int i;
+		
+	for(i=0;i<17;i++)
+	{
+		sum+=num[i];
+	}
+	
+	if(sum>21)
+		printf(" DEAD. OVERFLOW\N");
+	
+	return (sum);	
 }
 
 int Card_SHOW_1() // card showing on the first game set.
 {
 	int i;
+	int  answer; // the variable of answer that player want to go or stay.
 	Card_Offer_1();
 	
 	printf("------------- CARD OFFERING ---------------\n");
 
 
-	printf(" delear : X %c", Matching_the_card_shape(Dealer_card[2]), Matching_the_card_number(Dealer_card[2]));
-	printf(" -> you : %c%d %c%d", Matching_the_card_shape(Player_Card[1][1]), Matching_the_card_number(Player_Card[1][1]), Matching_the_card_shape(Player_Card[2][1]), Matching_the_card_number(Player_Card[2][1]));	
+	printf(" delear : X %c%d", Matching_the_card_shape(Dealer_card[2]), Matching_the_card_number(Dealer_card[2]));
+	printf(" -> you : %c%d %c%d", Matching_the_card_shape(Player_Card[1][0]), Matching_the_card_number(Player_Card[1][0]), Matching_the_card_shape(Player_Card[2][0]), Matching_the_card_number(Player_Card[2][0]));	
+	printf ("sum : %d", number_cal(Matching_the_card_number(Player_Card[1][1]), Matching_the_card_number(Player_Card[2][1])); 
 	
 	
-	for(i=2;i<=PLAY_NUMBER;i++)
+	
+	for(i=1;i<=PLAY_NUMBER;i++) // the player number of user is zero.
 		{
 		printf(" -> player %d : %c%d %c%d", i, Matching_the_card_shape(Player_Card[1][i]), Matching_the_card_number(Player_Card[1][i]), Matching_the_card_shape(Player_Card[2][i]), Matching_the_card_number(Player_Card[2][i]));
-		
+		printf("sum : %d", number_cal(Matching_the_card_number(Player_Card[1][i]), Matching_the_card_number(Player_Card[2][i])));
 		}
-	return 0;
+		
+	printf("11 = king\n");
+	printf("12 = queen\n");
+	printf("13 = jack\n");	
+	
+	printf("\n");
+	printf("---------GAME start----------\n");
+	printf(">>>> my turn !------\n");
+	printf("-> card : %c%d %c%d", Matching_the_card_shape(Player_Card[1][0]), Matching_the_card_number(Player_Card[1][0]), Matching_the_card_shape(Player_Card[2][0]), Matching_the_card_number(Player_Card[2][0]));
+	printf("\n");
+	
+	printf("::: Action? ( 0 - go, other integrar -stay) : \n");
+	scanf("%d", &answer);
+	
+	if(answer==0)
+	{
+		printf(" -> card : %c%d %c%d %c%d", Matching_the_card_shape(Player_Card[1][0]), Matching_the_card_number(Player_Card[1][0]), Matching_the_card_shape(Player_Card[2][0]), Matching_the_card_number(Player_Card[2][0]),Matching_the_card_shape(Card_Offer_player(2, 0))Matching_the_card_number(Card_Offer_player(2, 0)));
+		printf(" sum : %d",  number_cal(Matching_the_card_number(Player_Card[1][0]), Matching_the_card_number(Player_Card[2][0]), Player_Card[1][0]), Matching_the_card_number(Player_Card[3][0]));
+	}
+
+
 }
+

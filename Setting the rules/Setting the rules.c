@@ -20,7 +20,7 @@ int bet[N_MAX_USER]; //players do betting
 int gameEnd=0; // flag of end
 int PLAY_NUMBER;//fix the play number 
 int N_ROUND=1; //represent the count of round
-int Dollar[N_MAX_USER];
+int Dollar[N_MAX_USER] = {50,50,50,50,50};
 int Round_B_price[N_MAX_GO][N_MAX_USER]; //The betting amount variable of the player in the field.
 
 int getIntegerInput(void) // the function that protect to input
@@ -55,7 +55,9 @@ int PLAY_NUM() // input the sum of players
 
 }while(PLAY_NUMBER<0||PLAY_NUMBER>5);
 
+printf("\n");
 printf("---> card is mixed and put into the tray\n");
+printf("\n");
 return 0;
 }
 
@@ -72,18 +74,12 @@ extern int Dollar[N_MAX_USER]; //express that is external.
 extern PLAY_NUMBER; //express that is external.
 extern int Round_B_price[N_MAX_GO][N_MAX_USER]; // express that is external.
 
-int set_price()
-{
-	int Dollar[5]={50, 50, 50, 50, 50};
-}
-
  
 int RANDOM_B_PLAYER() // Ramdom betting system for other players
 {
 	int i;
 	int B_max[N_MAX_USER];
 	
-	set_price();
 	B_max[N_MAX_USER] = Dollar[N_MAX_USER]; //Make as much as the number of player the array for money.
 	
 	for(i=1;i<PLAY_NUMBER;i++) //the user is the player : array number [0].
@@ -101,9 +97,10 @@ int BETTING_SET() //Betting for play
 {
 	int bet_user; // betting price for user
 	int i;
-	set_price();
 	
+	printf("\n");
 	printf("-----betting step-----\n");
+	printf("\n");
 	do{
 		printf("   -> your betting (total : %d) : ", Dollar[0]);
 		scanf("%d", &bet_user);
