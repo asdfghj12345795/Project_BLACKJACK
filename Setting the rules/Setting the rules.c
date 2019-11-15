@@ -3,7 +3,7 @@
 #include <stdlib.h>//to use rand function
 #include <time.h>
 
-#define N_CARDSET	1
+#define N_CARDSET	17
 #define N_CARD	52
 #define N_MAX_CARDNUM	13
 #define N_MAX_USER	5

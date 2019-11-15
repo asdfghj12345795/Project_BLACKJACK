@@ -219,7 +219,7 @@ extern int Player_Card[N_MAX_GO][N_MAX_USER];
 
 extern int Dealer_card[N_MAX_GO]; 
 
-int number_cal(int num[N_MAX_GO]) //A function that calculates an overflow by adding the number of cards
+int number_cal(int num[N_MAX_GO][player_number]) //A function that calculates an overflow by adding the number of cards
 {
 	int sum=0; // a variable that stores the sum of the numbers written on the card.
 	int i;
@@ -230,15 +230,21 @@ int number_cal(int num[N_MAX_GO]) //A function that calculates an overflow by ad
 	}
 	
 	if(sum>21)
+	{
 		printf(" DEAD. OVERFLOW\N");
-	
+		
+
+	}
 	return (sum);	
 }
 
 int Card_SHOW_1() // card showing on the first game set.
 {
 	int i;
+	int j; // Number of players to play cards
+	int h;
 	int  answer; // the variable of answer that player want to go or stay.
+	
 	Card_Offer_1();
 	
 	printf("------------- CARD OFFERING ---------------\n");
@@ -266,6 +272,8 @@ int Card_SHOW_1() // card showing on the first game set.
 	printf("-> card : %c%d %c%d", Matching_the_card_shape(Player_Card[1][0]), Matching_the_card_number(Player_Card[1][0]), Matching_the_card_shape(Player_Card[2][0]), Matching_the_card_number(Player_Card[2][0]));
 	printf("\n");
 	
+	do{
+	
 	printf("::: Action? ( 0 - go, other integrar -stay) : \n");
 	scanf("%d", &answer);
 	
@@ -274,7 +282,27 @@ int Card_SHOW_1() // card showing on the first game set.
 		printf(" -> card : %c%d %c%d %c%d", Matching_the_card_shape(Player_Card[1][0]), Matching_the_card_number(Player_Card[1][0]), Matching_the_card_shape(Player_Card[2][0]), Matching_the_card_number(Player_Card[2][0]),Matching_the_card_shape(Card_Offer_player(2, 0))Matching_the_card_number(Card_Offer_player(2, 0)));
 		printf(" sum : %d",  number_cal(Matching_the_card_number(Player_Card[1][0]), Matching_the_card_number(Player_Card[2][0]), Player_Card[1][0]), Matching_the_card_number(Player_Card[3][0]));
 	}
+	
+	else return 0;
+	
+}while(number_cal(Matching_the_card_number(Player_Card[1][0])<21));
 
+do{
+for(j=1;j<PLAY_NUMBER;j++)
+{
+		printf(" -> player %d : %c%d %c%d %c%d", i, Matching_the_card_shape(Player_Card[1][i]), Matching_the_card_number(Player_Card[1][i]), Matching_the_card_shape(Player_Card[2][i]), Matching_the_card_number(Player_Card[2][i]), Matching_the_card_shape(Card_Offer_player(2, j)) ,Matching_the_card_numberer(Card_Offer_player(2, j));
+		printf("sum : %d", number_cal(Matching_the_card_number(Player_Card[1][j]), Matching_the_card_number(Player_Card[2][j]), Matching_the_card_number(Player_Card[3][j])));
+}
+}while(number_cal(int num[N_MAX_GO][player_number])<21);
 
+return 0;
 }
 
+int main()
+{
+	PLAY_NUM();
+	Card_Offer_1();
+	Card_SHOW_1();
+	
+	return 0;
+}
