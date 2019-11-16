@@ -298,7 +298,7 @@ for(j=1;j<PLAY_NUMBER;j++)
 return 0;
 }
 
-int main()
+int main() //run only the first play. 
 {
 	PLAY_NUM();
 	Card_Offer_1();
